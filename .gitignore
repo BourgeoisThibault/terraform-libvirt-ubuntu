@@ -1,0 +1,6 @@
+# Ignore cloud images
+*.qcow2
+*.img
+# Ignore terraform engine files
+.terraform*
+terraform.tf*
