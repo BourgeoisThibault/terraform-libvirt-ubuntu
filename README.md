@@ -11,6 +11,24 @@ This is also a specific development that include some prerequisites:
 
 Public image available [here](https://hub.docker.com/r/tibhome/terraform-libvirt-ubuntu).
 
+If with AppArmor security system, add this in `/etc/apparmor.d/libvirt/TEMPLATE.qemu` and restart `libvirtd` service.
+
+```bash
+#
+# This profile is for the domain whose UUID matches this file.
+#
+
+#include <tunables/global>
+
+profile LIBVIRT_TEMPLATE flags=(attach_disconnected) {
+   /var/lib/libvirt/images/**.qcow2 rwk,
+   /var/lib/libvirt/images/**.raw rwk,
+   /var/lib/libvirt/images/**.img rwk,
+   /var/lib/libvirt/images/**.iso rwk,
+  #include <abstractions/libvirt-qemu>
+}
+```
+
 ## Build container
 
 Download you needed img image [here](https://cloud-images.ubuntu.com/) then copi it in image directory.
